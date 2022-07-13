@@ -1,0 +1,15 @@
+.error{
+  font-size: 2.5rem;
+  font-style: italic;
+  font-weight: bolder;
+  color: white;
+  width: 100%;
+  text-align: center;
+  text-shadow: 0 1px 5px black;
+
+
+}
+.icon{
+  color:rgb(18, 15, 15);
+  padding-bottom: 4px;
+}

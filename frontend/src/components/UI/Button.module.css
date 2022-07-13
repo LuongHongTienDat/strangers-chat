@@ -1,0 +1,25 @@
+.button {
+  font: inherit;
+  background: #5496bc;
+  background-image: linear-gradient(to bottom right, #86b8d5, #cde4f1);
+  border: 2px solid #86b8d5;
+
+  color: rgb(3, 3, 3);
+  padding: 0.4rem 1.1rem;
+  margin: 0.6rem;
+  cursor: pointer;
+  font-weight: bold;
+  transition-duration: 100ms;
+
+}
+
+.button:hover,.button:active {
+  border: 2px solid #5496bc;
+  background: white;
+  color: #1C658C;
+  transition-duration: 100ms;
+}
+
+.button:focus {
+  outline: none;
+}
