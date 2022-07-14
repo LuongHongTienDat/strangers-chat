@@ -8,11 +8,9 @@ class WebSockets {
     const {title} = client.handshake.auth;
     const {_id} = client.handshake.auth.user;
     client.join(title)
-    console.log(`connect ${client.id}`);
 
     // event fired when the chat room is disconnected
     client.on("disconnect", (reason) => {
-      console.log(`dis ${client.id}`,reason);
         // this.users = this.users.filter((user) => user.socketId !== client.id);
     });
     io.on("error", (error) => {

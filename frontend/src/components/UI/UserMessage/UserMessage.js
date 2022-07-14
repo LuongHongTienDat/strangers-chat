@@ -5,7 +5,9 @@ const UserMessage = props => {
         <div className={`${classes.outgoing_msg}`}>
             <div className={`${classes.sent_msg}`}>
                 <p>{props.children}</p>
-                <span className={`${classes.time_date}`}>{props.time}</span> 
+                <span className={`${classes.time_date}`}>
+                    {props.time}
+                </span>
             </div>
         </div>
     )

@@ -55,9 +55,30 @@ class UserController {
                 roleUser: user.roleUser,
                 token: generateToken(user._id, user.userName)
             });
-        } else {
+        } else if (!user) {
+            var salt = await bcrypt.genSalt(10);
+            var hashPassword = await  bcrypt.hash(password,salt);
+            const newUser = await User.create({
+                userName,
+                password: hashPassword,
+                roleUser: "customer"
+            });
+            if (newUser){
+                res.json({
+                    _id: newUser._id,
+                    userName,
+                    newUser: newUser.roleUser,  
+                    token: generateToken(newUser._id, newUser.userName)            
+                });
+            }
+            else {
+                res.status(501);
+                throw new Error('Fail to resister new user!');          
+            }
+        }
+        else {
             res.status(401);
-            throw new Error("Invalid UserName or Password");
+            throw new Error("Invalid Password");
         }
     })
 

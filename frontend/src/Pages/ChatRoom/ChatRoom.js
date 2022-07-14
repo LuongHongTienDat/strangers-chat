@@ -9,6 +9,8 @@ import UserMessage from '../../components/UI/UserMessage/UserMessage';
 import { getMessages } from '../../api/chatRoomApi';
 import io from "socket.io-client";
 import Error from '../../components/Error/Error';
+import Moment from 'moment';
+import moment from 'moment';
 
 const ChatRoom = props => {
     const [isLoading, setIsLoading] = useState(false);
@@ -40,7 +42,6 @@ const ChatRoom = props => {
                 // socket.on("message", data => {
                 client.on('connect', () => {
                     client.on('receiveMessage', (data) => {
-        
                         setMessages(prev=>[...prev, data])
                     });
                     // client.emit('postMessage', {message:"inside"});
@@ -75,6 +76,12 @@ const ChatRoom = props => {
                 </Error>
     }
 
+    const formatTime = date => {
+        if (moment(date).format('YYYY') != moment(new Date()).format('YYYY') ){
+            return moment(date).format('MMMM Do YYYY')
+        }
+        return moment(date).format('h:mm A | MMMM Do')
+    }
     return (
         <Card className={`${classes.cardChat}`}>
             <div className={`${classes.mesgs}`}>
@@ -86,14 +93,14 @@ const ChatRoom = props => {
                         messages.map(m => {
                             if (JSON.parse(localStorage.getItem('user')).userName == m.postedByUser.userName) {
                                 return (
-                                    <UserMessage key={m._id} time="11:01 AM | June 9">
+                                    <UserMessage key={m._id} time={formatTime(m.createdAt)}>
                                         {m.message}
                                     </UserMessage>
                                 )
                             }
                             else {
                                 return (
-                                    <CommingMessage key={m._id} time="11:01 AM | June 9">
+                                    <CommingMessage key={m._id} user={`${m.postedByUser.userName}`}  time={formatTime(m.createdAt)}>
                                         {m.message}
                                     </CommingMessage>
                                 )

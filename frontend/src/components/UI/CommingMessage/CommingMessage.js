@@ -7,7 +7,10 @@ const CommingMessage = props => {
             <div className={`${classes.received_msg}`}>
                 <div className={`${classes.received_withd_msg}`}>
                     <p>{props.children}</p>
-                    <span className={`${classes.time_date}`}>{props.time || "No time"}</span>
+                    <span className={`${classes.time_date}`}>
+                        <span>{props.user} </span>
+                        - {props.time}
+                    </span>                
                 </div>
             </div>
         </div>

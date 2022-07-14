@@ -42,7 +42,7 @@ const RegisterForm = props => {
                     <input id="username" type="text" value={enteredUsername} onChange={usernameChangeHandler}></input>
                     <label htmlFor='password'>Password</label>
                     <input id="password" type="password" value={enteredPassword} onChange={passwordChangeHandler}></input>
-                    <Button type='submit'>Register</Button>
+                    <Button type='submit'>REGISTER OR SIGN IN</Button>
                 </form>   
             </Card>
 

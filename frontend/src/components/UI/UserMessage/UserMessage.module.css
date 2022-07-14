@@ -15,5 +15,10 @@
     color: #747474;
     display: block;
     font-size: 12px;
-    margin: 8px 0 0;
-}
+    margin: 2px 4px 0;
+  }
+  @media (max-width: 768px) {
+    .sent_msg { 
+      width: 60%;
+    }
+  }

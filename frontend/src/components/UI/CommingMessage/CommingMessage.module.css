@@ -27,6 +27,17 @@
     color: #747474;
     display: block;
     font-size: 12px;
-    margin: 8px 0 0;
+    margin: 2px 4px 0;
 }
-.received_withd_msg { width: 57%;}
+.received_withd_msg { 
+  width: 57%;
+}
+.time_date span {
+  color: #05728f;
+  font-weight: 500;
+}
+@media (max-width: 768px) {
+  .received_withd_msg { 
+    width: 70%;
+  }
+}
