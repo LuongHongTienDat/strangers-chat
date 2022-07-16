@@ -8,6 +8,9 @@
 
 
 }
+.row{
+  margin: auto;
+}
 
 .input label {
   display: block;

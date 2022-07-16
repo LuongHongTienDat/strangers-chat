@@ -58,7 +58,7 @@ const Profile = props => {
     }
 
     return (
-        <div className='row'>
+        <div className = {`row ${classes['row']}`}>
             <Card className = {classes.input}>
                 <div className = {`${classes['profileTitle']}`}>YOUR GROUPS <FaRocketchat/></div> 
                 <div className = {`${classes['flex-container']}`}>
