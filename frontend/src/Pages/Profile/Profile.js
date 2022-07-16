@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react'
+import {useState, useEffect, useContext} from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import classes from "./Profile.module.css"
 import Card from '../../components/UI/Card';
@@ -6,8 +6,9 @@ import Button from '../../components/UI/Button';
 import { getJoinedRooms, joinRoom } from '../../api/profileApi';
 import { useNavigate } from 'react-router-dom';
 import { FaRocketchat } from "react-icons/fa";
-
+import AuthContext from '../../store/auth-context';
 const Profile = props => {
+    const authCtx = useContext(AuthContext)
     const navigate = useNavigate()
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
@@ -16,13 +17,10 @@ const Profile = props => {
     const [errorGroup, setErrorGroup] = useState("")
 
     useEffect(() => {
-        if (!localStorage.getItem("user")){    
-            navigate("../")
-        }
         (async () => {
             try {
               setIsLoading(true);
-              const data = await getJoinedRooms(JSON.parse(localStorage.getItem('user')).token)
+              const data = await getJoinedRooms(authCtx.token)
               setRooms(data);
             } catch (error) {
               setIsError(true);
@@ -48,10 +46,9 @@ const Profile = props => {
         }
     }
     const logout = ()=>{
-        localStorage.removeItem('user');
+        authCtx.logout();
         navigate('/')
     }
-
     if (isLoading) {
         return <p>Loading posts...</p>;
       }

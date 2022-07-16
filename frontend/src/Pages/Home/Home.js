@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react'
+import {useState, useEffect, useContext} from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import classes from "./Home.module.css"
 import RegisterForm from '../../components/Users/RegisterForm';
@@ -6,9 +6,10 @@ import { login } from '../../api/userApi';
 import { useNavigate } from 'react-router-dom';
 import ErrorModal from '../../components/UI/ErrorModal'
 import { FaRegUser } from "react-icons/fa";
-
+import AuthContext from '../../store/auth-context';
 const Home = props => {
     const navigate = useNavigate()
+    const authCtx = useContext(AuthContext)
     useEffect(()=>{
         if (localStorage.getItem("user")){    
             navigate("/profile")
@@ -24,8 +25,10 @@ const Home = props => {
             })
         }
         else {
-            localStorage.setItem("user", JSON.stringify(newUser));
-            navigate("/profile")
+            newUser.expirationTime = new Date();
+            newUser.expirationTime.setDate(newUser.expirationTime.getDate() + 1);
+            authCtx.login(newUser)
+            navigate("/profile");
         }
     }
     const onErrorHandler = (e)=>{

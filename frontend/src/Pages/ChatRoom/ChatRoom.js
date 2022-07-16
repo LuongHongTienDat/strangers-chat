@@ -1,4 +1,4 @@
-import {useState, useEffect,useRef} from 'react'
+import {useState, useEffect, useRef, useContext} from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import classes from "./ChatRoom.module.css"
 import { FaTelegramPlane } from "react-icons/fa";
@@ -9,10 +9,10 @@ import UserMessage from '../../components/UI/UserMessage/UserMessage';
 import { getMessages } from '../../api/chatRoomApi';
 import io from "socket.io-client";
 import Error from '../../components/Error/Error';
-import Moment from 'moment';
 import moment from 'moment';
-
+import AuthContext from '../../store/auth-context';
 const ChatRoom = props => {
+    const authCtx = useContext(AuthContext)
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState({status: false, message:""});
     var socket = useRef();
@@ -25,7 +25,7 @@ const ChatRoom = props => {
         (async () => {
             try {
                 setIsLoading(true);
-                const data = await getMessages(JSON.parse(localStorage.getItem('user')).token, title )
+                const data = await getMessages(authCtx.token, title )
                 if (data.message){
                     throw new Error(data.message)
                 }
@@ -35,7 +35,7 @@ const ChatRoom = props => {
             } finally {
                 setIsLoading(false);
                 const client = io('http://localhost:5000',{
-                    auth:   {token: JSON.parse(localStorage.getItem('user')).token, title},
+                    auth:   {token: authCtx.token, title},
                     transports: [ 'websocket' ],
                     path: "/socket.io/socket.io.js"
                 });  
